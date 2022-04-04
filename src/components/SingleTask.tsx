@@ -11,6 +11,7 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
     const [onEdit, setOnEdit] = useState<boolean>(false);
     const [editedTask, setEditedTask] = useState<string>(task.task);
 
+    // TODO fix done and edit bugs
     const handleDone = (id: number) => {
         setTasks((currentTasks) =>
             currentTasks.map((t) =>
@@ -24,21 +25,33 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
         setTasks((currentTasks) => currentTasks.filter((t) => t.id !== id));
     };
 
-    const handleEdit = (id: number) => {
+    const handleEditState = (id: number) => {
         if (!onEdit && !task.isDone) {
             setOnEdit((current) => !current);
         }
     };
 
+    const handleEdit = (e: React.FormEvent, id: number) => {
+        e.preventDefault();
+
+        setTasks((current) =>
+            current.map((t) =>
+                t.id === id ? { ...t, task: editedTask } : task
+            )
+        );
+        handleEditState(id);
+    };
+
     return (
         <div className="d-inline-block m-2 flex-grow-1">
-            <div className="card">
+            <form className="card" onSubmit={(e) => handleEdit(e, task.id)}>
                 <div className="card-body d-flex gap-2 p-2">
                     {onEdit ? (
                         <input
                             type="text"
                             className="form-control"
-                            value={task.task}
+                            value={editedTask}
+                            onChange={(e) => setEditedTask(e.target.value)}
                         />
                     ) : task.isDone ? (
                         <s className="form-control text-start">{task.task}</s>
@@ -49,7 +62,7 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
                     )}
                     <button
                         className="btn btn-outline-dark"
-                        onClick={() => handleEdit(task.id)}
+                        onClick={() => handleEditState(task.id)}
                     >
                         ✍️
                     </button>
@@ -66,7 +79,7 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
                         ✅
                     </button>
                 </div>
-            </div>
+            </form>
         </div>
     );
 };
