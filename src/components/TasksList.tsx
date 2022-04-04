@@ -9,7 +9,7 @@ interface Props {
 
 const TasksList: React.FC<Props> = ({ tasks, setTasks }) => {
     return (
-        <div>
+        <div className="d-flex flex-row flex-wrap">
             {tasks.map((t) => (
                 <SingleTask
                     task={t}

@@ -8,7 +8,7 @@ interface Props {
 
 const InputField: React.FC<Props> = ({ task, setTask, handleAdd }) => {
     return (
-        <div className="w-50 d-inline-block">
+        <div className="w-50 d-inline-block mb-5">
             <form className="input-group" onSubmit={handleAdd}>
                 <input
                     type="input"
