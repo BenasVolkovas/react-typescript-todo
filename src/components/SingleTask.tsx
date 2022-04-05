@@ -18,7 +18,7 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
                 t.id === id ? { ...t, isDone: !t.isDone } : t
             )
         );
-        console.log("changed");
+        console.log(id);
     };
 
     const handleDelete = (id: number) => {
@@ -33,13 +33,13 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
 
     const handleEdit = (e: React.FormEvent, id: number) => {
         e.preventDefault();
+        console.log("edited");
 
         setTasks((current) =>
-            current.map((t) =>
-                t.id === id ? { ...t, task: editedTask } : task
-            )
+            current.map((t) => (t.id === id ? { ...t, task: editedTask } : t))
         );
-        handleEditState(id);
+
+        setOnEdit((current) => !current);
     };
 
     return (
@@ -61,18 +61,21 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
                         </div>
                     )}
                     <button
+                        type="button"
                         className="btn btn-outline-dark"
                         onClick={() => handleEditState(task.id)}
                     >
                         ✍️
                     </button>
                     <button
+                        type="button"
                         className="btn btn-outline-dark"
                         onClick={() => handleDelete(task.id)}
                     >
                         🗑️
                     </button>
                     <button
+                        type="button"
                         className="btn btn-outline-dark"
                         onClick={() => handleDone(task.id)}
                     >

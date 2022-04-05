@@ -9,9 +9,13 @@ const App: React.FC = () => {
 
     const handleAddNew = (e: React.FormEvent) => {
         e.preventDefault();
+        console.log("new task added");
 
         if (task) {
-            setTasks([...tasks, { id: Date.now(), task: task, isDone: false }]);
+            setTasks((currentTasks) => [
+                ...currentTasks,
+                { id: Date.now(), task: task, isDone: false },
+            ]);
             setTask("");
         }
     };
