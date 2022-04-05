@@ -43,13 +43,14 @@ const SingleTask: React.FC<Props> = ({ task, tasks, setTasks }) => {
     };
 
     return (
-        <div className="d-inline-block m-2 flex-grow-1">
+        <div className="d-inline-block m-2 w-100">
             <form className="card" onSubmit={(e) => handleEdit(e, task.id)}>
                 <div className="card-body d-flex gap-2 p-2">
                     {onEdit ? (
                         <input
+                            autoFocus
                             type="text"
-                            className="form-control"
+                            className="form-control border border-dark"
                             value={editedTask}
                             onChange={(e) => setEditedTask(e.target.value)}
                         />
