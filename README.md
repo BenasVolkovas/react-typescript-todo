@@ -1,1 +1,1 @@
-# Advanced Todo app built with typescript
+# Simple Todo app built with typescript
